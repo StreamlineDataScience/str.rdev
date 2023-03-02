@@ -1,17 +1,9 @@
-Package: str.template
+Package: str.rdev
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
-Authors@R: 
-  c(
-    person(given = "John",family = "Muschelli",
-      email = "jmuschelli@streamlinedatascience.io",
-      role = c("aut", "cre"),
-      comment = c(ORCID = "0000-0001-6469-1750")),
-    person(given = "Streamline Data Science", family = NULL,
-      role = c("cph"))
-  )
+Authors@R: NULL
 Description: What the package does (one paragraph).
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
