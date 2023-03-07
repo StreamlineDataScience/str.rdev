@@ -31,3 +31,23 @@ download_github <- function(link, destfile) {
 
   save(raw_data, file = destfile)
 }
+
+download_google_sheets <- function(link, destfile) {
+  temp_file <- tempfile(fileext = ".xls")
+
+  tryCatch({
+    suppressMessages(
+      googledrive::drive_download(file = link,
+                                  path = temp_file,
+                                  overwrite = TRUE)
+    )
+
+  },
+  error = function(e) {
+    stop("Error: Google Sheets download failed")
+  })
+
+  suppressMessages(raw_data <- readxl::read_xls(temp_file))
+
+  save(raw_data, file = destfile)
+}
