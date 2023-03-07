@@ -63,7 +63,6 @@ download_google_sheets <- function(link, destfile) {
                                   path = destfile,
                                   overwrite = TRUE)
     )
-
   },
   error = function(e) {
     stop("Error: Google Sheets download failed")
