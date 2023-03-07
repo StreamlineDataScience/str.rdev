@@ -1,7 +1,7 @@
 #' @export
 enron_download_data = function(source = c("github", "google_sheets"),
                                link = NULL,
-                               destfile = "data-raw/enron_raw_data.rda") {
+                               destfile = "inst/extdata/enron_raw_data.xls") {
   source <- match.arg(source)
 
   if (is.null(link)) {
@@ -21,24 +21,17 @@ get_default_link <- function(source) {
 
 download_github <- function(link, destfile) {
   raw_link <- glue::glue("{link}?raw=true")
-  temp_file <- tempfile(fileext = ".xls")
-  req <- httr::GET(raw_link, httr::write_disk(path = temp_file))
+  req <- httr::GET(raw_link, httr::write_disk(path = destfile, overwrite = TRUE))
 
   if (req$status_code != 200)
     stop("Error: Github download failed")
-
-  suppressMessages(raw_data <- readxl::read_xls(temp_file))
-
-  save(raw_data, file = destfile)
 }
 
 download_google_sheets <- function(link, destfile) {
-  temp_file <- tempfile(fileext = ".xls")
-
   tryCatch({
     suppressMessages(
       googledrive::drive_download(file = link,
-                                  path = temp_file,
+                                  path = destfile,
                                   overwrite = TRUE)
     )
 
@@ -46,8 +39,4 @@ download_google_sheets <- function(link, destfile) {
   error = function(e) {
     stop("Error: Google Sheets download failed")
   })
-
-  suppressMessages(raw_data <- readxl::read_xls(temp_file))
-
-  save(raw_data, file = destfile)
 }
