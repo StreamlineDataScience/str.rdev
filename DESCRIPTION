@@ -1,9 +1,18 @@
 Package: str.rdev
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
-Authors@R: NULL
+Authors@R: 
+    person(given = "Jacci",
+           family = "Ziebert",
+           role = c("aut", "cre"),
+           email = "jacciziebert@gmail.com")
 Description: What the package does (one paragraph).
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Imports:
+    data.table
+Depends: 
+    R (>= 2.10)
+
