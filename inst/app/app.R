@@ -83,7 +83,7 @@ ui <- shiny::tagList(
 )
 
 server <- function(input, output, session) {
-  r_chart_data <- reactive({
+  r_chart_data <- shiny::reactive({
     out <- enron_data |>
       dplyr::filter(location %in% input$location_name)
 
