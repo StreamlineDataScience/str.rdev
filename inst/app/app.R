@@ -84,8 +84,18 @@ ui <- shiny::tagList(
 
 server <- function(input, output, session) {
   r_chart_data <- reactive({
-    enron_data |>
+    out <- enron_data |>
       dplyr::filter(location %in% input$location_name)
+
+    if (input$data_aggregation == "Monthly") {
+      out <- out |>
+        dplyr::mutate(date = lubridate::ymd(date) |> lubridate::floor_date(unit = "month")) |>
+        dplyr::group_by(location, date) |>
+        dplyr::summarise(receipts = sum(receipts)) |>
+        dplyr::ungroup()
+    }
+
+    out
   })
 
   js_format_amount <- "
