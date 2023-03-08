@@ -1,16 +1,31 @@
 Package: str.rdev
-Title: What the Package Does (One Line, Title Case)
+Title: Download and Process the Enron data set
 Version: 0.0.0.9000
 Authors@R: 
     person("Ivan", "Millanes", , "ivanmillanes26@gmail.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: This is a basic example which shows you how to solve a common problem. It downloads and process Enron data. Finally, a small Shiny app was developed to explore the formatted data.
 License: GPL (>= 3)
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+Depends: 
+    R (>= 4.1.0)
+Imports: 
+    bs4Dash,
+    dplyr,
+    echarts4r,
+    glue,
+    googledrive,
+    htmlwidgets,
+    httr,
+    lubridate,
+    purrr,
+    readxl,
+    shiny,
+    shinyWidgets,
+    tidyr
 Suggests: 
+    readr,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-Depends: 
-    R (>= 2.10)
+Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
