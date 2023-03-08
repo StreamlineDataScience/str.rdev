@@ -24,18 +24,33 @@ ui <- shiny::tagList(
         bs4Dash::tabItem(
           tabName = "analysis_page",
 
-          bs4Dash::box(
-            title = "Select Locations",
-            shinyWidgets::pickerInput(
-              inputId = "location_name",
-              label = NULL,
-              choices = unique(enron_data$location),
-              selected = (enron_data$location),
-              multiple = TRUE,
-              options = list(`actions-box` = TRUE, `selected-text-format` = 'count > 3')
+          shiny::fluidRow(
+            bs4Dash::box(
+              title = "Select Locations",
+              shinyWidgets::pickerInput(
+                inputId = "location_name",
+                label = NULL,
+                choices = unique(enron_data$location),
+                selected = (enron_data$location),
+                multiple = TRUE,
+                options = list(`actions-box` = TRUE, `selected-text-format` = 'count > 3')
+              ),
+              width = 4
             ),
-            width = 4
+
+            bs4Dash::box(
+              title = "Select Data Aggregation",
+              shinyWidgets::pickerInput(
+                inputId = "data_aggregation",
+                label = NULL,
+                choices = c("Daily", "Monthly"),
+                selected = "Monthly",
+                multiple = FALSE
+              ),
+              width = 4
+            )
           ),
+
 
           bs4Dash::box(
             title = "Analyze Selected Locations",
