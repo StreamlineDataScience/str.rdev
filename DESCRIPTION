@@ -1,9 +1,9 @@
 Package: str.rdev
-Title: What the Package Does (One Line, Title Case)
+Title: Download and Process the Enron data set
 Version: 0.0.0.9000
 Authors@R: 
     person("Ivan", "Millanes", , "ivanmillanes26@gmail.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: This is a basic example which shows you how to solve a common problem. It downloads and process Enron data. Finally, a small Shiny app was developed to explore the formatted data.
 License: GPL (>= 3)
 Depends: 
     R (>= 4.1.0)
