@@ -50,3 +50,4 @@ Regarding app development:
 - You might notice that some workarounds were introduced (for example, using `R/app_imports.R` to avoid warnings in CRAN check). I think that this workarounds wouldn't be needed if we used [`golem`](https://github.com/ThinkR-open/golem) or [`rhino`](https://github.com/Appsilon/rhino) to develop the application.
 - I know that the goal was to create a simple app. In a production app I would use [Shiny modules](https://shiny.rstudio.com/articles/modules.html).
 - The **About** page was developed using Shiny HTML tags. I would include the `.md` in a separate file and call `shiny::includeMarkdown()`.
+- I would use [`renv`](https://rstudio.github.io/renv/articles/renv.html) package for dependency management.
