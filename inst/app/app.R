@@ -114,6 +114,8 @@ server <- function(input, output, session) {
     }"
 
   output$chart <- echarts4r::renderEcharts4r({
+    shiny::validate(shiny::need(nrow(r_chart_data()) > 0, "Please select at least one Location"))
+
     r_chart_data() |>
       dplyr::group_by(location) |>
       echarts4r::e_chart(x = date) |>

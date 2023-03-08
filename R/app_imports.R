@@ -2,6 +2,6 @@
 #' @import echarts4r
 #' @import htmlwidgets
 #' @import lubridate
-#' @importFrom shiny tagList h1 p a strong reactive shinyApp
+#' @importFrom shiny tagList h1 p a strong reactive validate need shinyApp
 #' @importFrom shinyWidgets pickerInput
 NULL
