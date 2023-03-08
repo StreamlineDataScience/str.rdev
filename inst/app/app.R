@@ -1,16 +1,57 @@
-ui <- shiny::fluidPage(
+ui <- shiny::tagList(
+  bs4Dash::dashboardPage(
+    header = bs4Dash::dashboardHeader(
+      title = bs4Dash::dashboardBrand(
+        title = "Streamline Data Science",
+        color = "secondary",
+        href = "https://www.streamlinedatascience.io/"
+      )
+    ),
+    sidebar = bs4Dash::dashboardSidebar(
+      bs4Dash::sidebarMenu(
+        bs4Dash::menuItem(
+          text = "Analysis",
+          tabName = "analysis_page"
+        ),
+        bs4Dash::menuItem(
+          text = "About",
+          tabName = "about_page"
+        )
+      )
+    ),
+    body = bs4Dash::dashboardBody(
+      bs4Dash::tabItems(
+        bs4Dash::tabItem(
+          tabName = "analysis_page",
 
-  shinyWidgets::pickerInput(
-    inputId = "location_name",
-    label = "Select Locations",
-    choices = unique(enron_data$location),
-    selected = (enron_data$location),
-    multiple = TRUE,
-    options = list(`actions-box` = TRUE, `selected-text-format` = 'count > 3')
-  ),
+          bs4Dash::box(
+            title = "Select Locations",
+            shinyWidgets::pickerInput(
+              inputId = "location_name",
+              label = NULL,
+              choices = unique(enron_data$location),
+              selected = (enron_data$location),
+              multiple = TRUE,
+              options = list(`actions-box` = TRUE, `selected-text-format` = 'count > 3')
+            ),
+            width = 4
+          ),
 
-  echarts4r::echarts4rOutput(outputId = "chart")
+          bs4Dash::box(
+            title = "Analyze Selected Locations",
+            echarts4r::echarts4rOutput(outputId = "chart"),
+            width = 12
+          ),
 
+
+        ),
+        bs4Dash::tabItem(
+          tabName = "about_page",
+          "Placeholder"
+        )
+      )
+    )
+  )
 )
 
 server <- function(input, output, session) {
@@ -39,7 +80,7 @@ server <- function(input, output, session) {
       dplyr::group_by(location) |>
       echarts4r::e_chart(x = date) |>
       echarts4r::e_line(serie = receipts) |>
-      echarts4r::e_title(text = "Receipts over Time by Location", subtext = "For Selected Locations") |>
+      echarts4r::e_title(text = "Receipts over Time by Location") |>
       echarts4r::e_legend(
         left = "right",
         top = "middle",
