@@ -60,21 +60,21 @@ ui <- shiny::tagList(
         ),
         bs4Dash::tabItem(
           tabName = "about_page",
-          tags$h1("Data"),
+          shiny::h1("Data"),
 
-          tags$p("Data is from", tags$a(href = "https://en.wikipedia.org/wiki/Enron", "Enron"), ", which was a gas pipeline company."),
+          shiny::p("Data is from", shiny::a(href = "https://en.wikipedia.org/wiki/Enron", "Enron"), ", which was a gas pipeline company."),
 
-          tags$p("After a scandal, a number of their spreadsheets were released to the public."),
+          shiny::p("After a scandal, a number of their spreadsheets were released to the public."),
 
-          tags$p("The original spreadsheet can be found in", tags$a(href = "https://github.com/StreamlineDataScience/enron-example/blob/main/andrea_ring_000_1_1.pst.0.xls", "GitHub"), "or", tags$a(href = "https://docs.google.com/spreadsheets/d/1sx6H8HywgO8wJFLCZa2ejA97ByrPTGse/edit#gid=958365174", "Google Sheets"), "."),
+          shiny::p("The original spreadsheet can be found in", shiny::a(href = "https://github.com/StreamlineDataScience/enron-example/blob/main/andrea_ring_000_1_1.pst.0.xls", "GitHub"), "or", shiny::a(href = "https://docs.google.com/spreadsheets/d/1sx6H8HywgO8wJFLCZa2ejA97ByrPTGse/edit#gid=958365174", "Google Sheets"), "."),
 
-          tags$p("Data contains", tags$strong("deliveries"), "and", tags$strong("receipts"), "for a number of", tags$strong("locations/facilities"), "(e.g. ACADIAN, BRIDGELINE)."),
+          shiny::p("Data contains", shiny::strong("deliveries"), "and", shiny::strong("receipts"), "for a number of", shiny::strong("locations/facilities"), "(e.g. ACADIAN, BRIDGELINE)."),
 
-          tags$h1("Application"),
+          shiny::h1("Application"),
 
-          tags$p("This application, which was created using Shiny, allows the user to analyze the trend of receipts over time for each location."),
+          shiny::p("This application, which was created using Shiny, allows the user to analyze the trend of receipts over time for each location."),
 
-          tags$p("The user can select any number of locations and the aggregation of data (daily or monthly).")
+          shiny::p("The user can select any number of locations and the aggregation of data (daily or monthly).")
 
         )
       )
