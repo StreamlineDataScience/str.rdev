@@ -73,6 +73,8 @@ get_location_names <- function(path, range) {
 #' be processed in order to be properly used. The location names are binded to
 #' wide data, which is later pivoted to long format.
 get_data <- function(path, type = c("receipts", "deliveries"), location_names, ranges) {
+  type <- match.arg(type)
+
   purrr::map_df(
     .x = ranges,
     .f = function(range) {
