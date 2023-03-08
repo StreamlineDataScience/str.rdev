@@ -72,7 +72,9 @@ ui <- shiny::tagList(
 
           tags$h1("Application"),
 
-          tags$p("This application, which was created using Shiny, allows the user to analyze the trend of receipts over time for each location.")
+          tags$p("This application, which was created using Shiny, allows the user to analyze the trend of receipts over time for each location."),
+
+          tags$p("The user can select any number of locations and the aggregation of data (daily or monthly).")
 
         )
       )
