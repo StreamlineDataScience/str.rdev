@@ -51,13 +51,11 @@ ui <- shiny::tagList(
             )
           ),
 
-
           bs4Dash::box(
             title = "Analyze Selected Locations",
             echarts4r::echarts4rOutput(outputId = "chart"),
             width = 12
           ),
-
 
         ),
         bs4Dash::tabItem(
