@@ -1,3 +1,16 @@
+#' Process enron data
+#'
+#' @param file Character. Filepath of the `.xls` file to be processed.
+#'
+#' @details The structure of data stored in the `.xls` file is not ideal. Four
+#' different elements were identified: locations, receipts, deliveries and dates.
+#' The data processing was developed in a way that allows the user to easily
+#' adapt code if the location of data changes. First, the set of different
+#' location names is identified. This set of location names is later used in the
+#' processing of receipts and deliveries, which is done via a helper function
+#' that expects each data range with their corresponding dates. Finally,
+#' all data is merged and arranged.
+#'
 #' @export
 enron_process_data = function(file) {
   location_names <- get_location_names(path = file, range = "C4:C16")
@@ -34,10 +47,31 @@ enron_process_data = function(file) {
     dplyr::mutate(date = as.Date(date))
 }
 
+#' Get location names
+#'
+#' @param path Character. Filepath of the `.xls` file to be processed.
+#' @param range Character. Cells where location names can be found in the file.
+#'
+#' @details This helper function is used to extract the set of location names.
 get_location_names <- function(path, range) {
   readxl::read_xls(path = path, range = range, col_names = "location")
 }
 
+#' Get data
+#'
+#' @param path Character. Filepath of the `.xls` file to be processed.
+#' @param type Character. The type of data being extracted. Possible values are
+#' `"receipts"` and `"deliveries"`.
+#' @param location_names Tibble. A one-column tibble where each row corresponds
+#' to a location name. The name of the column is `location`.
+#' @param ranges List. A list of two elements: `date_row` and `data_range`. Each
+#' of these elements expect the cells where the corresponding data is stored.
+#'
+#' @details This helper function is used to process receipts and deliveries data.
+#' It expects each set of cell ranges to be expressed in its own element of a
+#' list. Dates are used as column names for each set of data. These dates need to
+#' be processed in order to be properly used. The location names are binded to
+#' wide data, which is later pivoted to long format.
 get_data <- function(path, type = c("receipts", "deliveries"), location_names, ranges) {
   purrr::map_df(
     .x = ranges,
