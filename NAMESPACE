@@ -2,3 +2,12 @@
 
 export(enron_download_file)
 export(enron_process_data)
+import(dplyr)
+import(here)
+import(purrr)
+import(rio)
+import(tidyr)
+import(tidyverse)
+importFrom(utils,read.csv)
+importFrom(utils,tail)
+importFrom(utils,write.csv)
