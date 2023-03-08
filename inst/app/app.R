@@ -86,7 +86,8 @@ server <- function(input, output, session) {
         top = "middle",
         orient = "vertical"
       ) |>
-      echarts4r::e_y_axis(formatter = htmlwidgets::JS(js_format_amount)) |>
+      echarts4r::e_y_axis(formatter = htmlwidgets::JS(js_format_amount),
+                          axisLabel = list(fontSize = 16)) |>
       echarts4r::e_tooltip(trigger = "axis")
 
   })
