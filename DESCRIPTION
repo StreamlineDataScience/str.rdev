@@ -1,7 +1,8 @@
 Package: str.rdev
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
-Authors@R: NULL
+Authors@R: 
+    person("Ivan", "Millanes", , "ivanmillanes26@gmail.com", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
 License: GPL (>= 3)
 Encoding: UTF-8
