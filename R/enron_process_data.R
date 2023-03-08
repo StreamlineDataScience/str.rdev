@@ -13,6 +13,8 @@
 #'
 #' @export
 enron_process_data = function(file) {
+  location <- NULL # Line added to pass CRAN check
+
   location_names <- get_location_names(path = file, range = "C4:C16")
 
   receipts_data <- get_data(
@@ -73,6 +75,8 @@ get_location_names <- function(path, range) {
 #' be processed in order to be properly used. The location names are binded to
 #' wide data, which is later pivoted to long format.
 get_data <- function(path, type = c("receipts", "deliveries"), location_names, ranges) {
+  location <- NULL # Line added to pass CRAN check
+
   type <- match.arg(type)
 
   purrr::map_df(
