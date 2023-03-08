@@ -13,10 +13,13 @@ Imports:
     echarts4r,
     glue,
     googledrive,
+    htmlwidgets,
     httr,
+    lubridate,
     purrr,
     readxl,
     shiny,
+    shinyWidgets,
     tidyr
 Suggests: 
     readr,
