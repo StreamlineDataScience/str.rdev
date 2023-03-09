@@ -45,11 +45,11 @@ shiny::runApp(system.file("app", package = "str.rdev"))
 
 ## Limitations and Robustness
 
-### `r enron_download_data`
+### `enron_download_data`
 
-For this use case I kept the function very simple due to the bespoke nature of the request. The function will accept a new link if the file is moved but will default to the provided location. The function will store the data in a temporary directory on the user's local machine for retrieval by the `r enron_process_data` function. If additional files are uploaded with the expectation that they will be combined, this function will need to be updated.
+For this use case I kept the function very simple due to the bespoke nature of the request. The function will accept a new link if the file is moved but will default to the provided location. The function will store the data in a temporary directory on the user's local machine for retrieval by the `enron_process_data` function. If additional files are uploaded with the expectation that they will be combined, this function will need to be updated.
 
-### `r enron_process_data`
+### `enron_process_data`
 
 This file is likely created by hand and displays inconsistencies in spacing. Tables with the data we need are vertically stacked, and the number of excel rows between tables differ. Each table has a consistent format with a top row containing day of week values, a line for each client, two rows for totals, and a blank row in the header. I used these consistencies to build a for loop that will search for these tables based on their header, calculate the number of rows based on how many locations are present, and wrangle these individual table chunks into one list item.
 
