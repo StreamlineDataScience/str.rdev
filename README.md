@@ -9,7 +9,7 @@ to explore this downloaded data.
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/StreamlineDataScience/str.rdev/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/StreamlineDataScience/str.rdev/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/dsobolew/str.rdev/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/dsobolew/str.rdev/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of `str.rdev` is to download and process the Enron data set.
