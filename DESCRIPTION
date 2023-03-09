@@ -1,9 +1,23 @@
 Package: str.rdev
-Title: What the Package Does (One Line, Title Case)
+Title: Loads Enron Data and Launches Shiny App
 Version: 0.0.0.9000
-Authors@R: NULL
-Description: What the package does (one paragraph).
+Authors@R: 
+    person("Dennis", "Sobolewski", , "Dennis.Sobolewski@gmail.com", role = c("aut", "cre"))
+Description: Provides functions for downloading and wrangling Enron data from an external source. This package also contains a Shiny app that can be used to explore this downloaded data.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Imports: 
+    dplyr,
+    here,
+    janitor,
+    readxl,
+    tidyr,
+    utils
+Depends: 
+    R (>= 2.10)
+LazyData: true
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
