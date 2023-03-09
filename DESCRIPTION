@@ -6,13 +6,18 @@ Authors@R:
            family = "Ziebert",
            role = c("aut", "cre"),
            email = "jacciziebert@gmail.com")
-Description: What the package does (one paragraph).
+Description: Download and cleans the enron dataset.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Imports:
-    data.table
+    data.table,
+    here,
+    readxl,
+    tidyr
 Depends: 
     R (>= 2.10)
-
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

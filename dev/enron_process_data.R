@@ -1,38 +1,62 @@
-wd = here::here()
-date_origin = as.Date("1899-12-30") # Date Excel starts to count days
-weekdays = weekdays(Sys.Date()+0:6, abbreviate = T)
-
-exon = readxl::read_xls(paste0("data-raw/andrea_ring_000_1_1.pst.0.xls"), col_names = FALSE, col_types = "text")
-read.csv("data-raw/andrea_ring_000_1_1.pst.0.xls")
-
-which(grepl("Mon", exon), arr.ind = T)
-which(exon == "Mon", arr.ind = T)[,1]
-
-# Find unique rows where a weekday exists
-unique_rows = lapply(weekdays, function(x) which(exon == x, arr.ind = T)[,1]) |> unlist() |> unique() |> sort()
+# wd = here::here()
+library(data.table)
+file = "enron"
+x=enron_process_data("enron")
 
 
-lapply(unique_rows, )
-which(exon == "Month-[0-9] Avg", arr.ind = T)
-which(grepl("Month-[0-9] Avg", exon), arr.ind = T)
-# stringr::str_locate_all(exon, "Month")
-# split(exon, 2)
+enron_process_data <- function(file) {
+  date_origin = as.Date("1899-12-30") # Date Excel starts to count days
 
-# split by 8 rows
-# https://stackoverflow.com/questions/63587058/split-a-large-dataframe-into-multiple-dataframes-by-row-in-r
-library(dplyr)
+  df = readxl::read_xls(
+    paste0("data-raw/", file, ".xls"),
+    col_names = FALSE,
+    col_types = "text"
+  )
+  setDT(df)
 
-# Remove emply rows
-remove_blank_rows = rownames(exon)[rowSums(is.na(exon)) == ncol(exon)] |> as.integer()
-exon = exon[-remove_blank_rows, ]
+  # Remove empty rows
+  remove_blank_rows = rownames(df)[rowSums(is.na(df)) == ncol(df)] |> as.integer()
+  df = df[-remove_blank_rows,]
 
+  # Assign a group ID for every xx (30) rows assuming last row is 'Total'.
+  # This will be used to split the dt and then do a cbind to make a wide dt
+  # Find where the max 'Total' row is, and that is the nrow() of the cleaned dt
+  total_row_loc = max(which(df == "Total", arr.ind = T)[, 1])
+  df[, group := rep(seq_len(nrow(df) / total_row_loc), each = total_row_loc)]
+  df_list <- split(df, df[ , group])
+  df_wide = do.call(cbind, df_list)
 
-exon = exon |> dplyr::mutate(group = rep(seq_len(nrow(exon)/30), each=30))
-dfList <- split(exon, exon$group)
-df_wide=do.call(cbind, dfList) |> data.table::as.data.table()
+  # Remove cols: where all are NA, remove group ID, remove cols of 'Avg' or 'Maximum' of row 1
+  remove_cols = colnames(df_wide)[colSums(is.na(df_wide)) == nrow(df_wide) |
+                                    grepl("group$", names(df_wide)) |
+                                    grepl("Avg$|Maximum$", df_wide[1, ])]
+  df_wide = df_wide[, !..remove_cols]
 
-# Remove cols: where are NA, remove group, remove 'Avg'
-remove_cols = colnames(df_wide)[colSums(is.na(df_wide)) == nrow(df_wide) | grepl("group$", names(df_wide)) | grepl("Avg$", df_wide[1,])]
-df_wide = df_wide[ , !..remove_cols]
+  # Find Receipts/Deliveries col and fill it
+  df_wide = tidyr::fill(df_wide, which(grepl("Receipts", df_wide)))
 
+  # Remove first row and 2 cols
+  df_wide = df_wide[2:nrow(df_wide), ]
+  df_wide = df_wide[, !c(1, 4)]
+  df_wide[1, 1:2] = data.frame("type", "location")
 
+  # First row to colnames
+  colnames(df_wide) <- as.character(df_wide[1, ])
+  df_wide = df_wide[-1, ]
+
+  # Long format
+  df_long = melt(df_wide,
+                 id.vars = c("type", "location"),
+                 variable.factor = FALSE)
+  df_long[, variable := as.integer(variable) + date_origin]
+
+  # Separate by type and merge the two together, we know deliveries is X and receipts is Y
+  df_long_clean = merge(df_long[location != "Total" &
+                                  grepl("^Deliveries", type), !"type"],
+                        df_long[location != "Total" &
+                                  grepl("^Receipts", type), !"type"], by = c("location", "variable"))
+
+  names(df_long_clean) = c("location", "date", "deliveries", "receipts")
+
+  return(df_long_clean)
+}
