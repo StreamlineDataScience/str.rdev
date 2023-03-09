@@ -2,15 +2,14 @@
 #'
 #' ccc
 #' @import data.table
-#' @importFrom utils download.file
 #' @param file name of raw .xls file to clean, is in /data-raw
 #' @return clean long df with
 #'
 #' @export
-enron_process_data = function(file = "exon") {
+enron_process_data = function(file = "enron") {
     date_origin = as.Date("1899-12-30") # Date Excel starts to count days, could store in helper_functions.R
 
-    openfile = paste0(here::here(),"/data-raw/", file, ".xls")
+    openfile = here::here("data-raw", paste0(file, ".xls"))
     df = readxl::read_xls(
       # paste0("data-raw/", file, ".xls"),
       openfile,
@@ -53,14 +52,14 @@ enron_process_data = function(file = "exon") {
     df_long = melt(df_wide,
                    id.vars = c("type", "location"),
                    variable.factor = FALSE)
-    df_long[, variable := as.integer(.data[["variable"]]) + date_origin]
-
-    # Separate by type and merge the two together, we know deliveries is X and receipts is Y
-    df_long_clean = merge(df_long[.data[["location"]] != "Total" &
-                                    grepl("^Deliveries", .data[["type"]]), !"type"],
-                          df_long[.data[["location"]] != "Total" &
-                                    grepl("^Receipts", .data[["type"]]), !"type"], by = c("location", "variable"))
-
+    df_long[, variable := as.integer(variable) + date_origin]
+    #
+    # # Separate by type and merge the two together, we know deliveries is X and receipts is Y
+    df_long_clean = merge(df_long[location != "Total" &
+                                    grepl("^Deliveries", type), !"type"],
+                          df_long[location != "Total" &
+                                    grepl("^Receipts", type), !"type"], by = c("location", "variable"))
+    #
     names(df_long_clean) = c("location", "date", "deliveries", "receipts")
 
     return(df_long_clean)

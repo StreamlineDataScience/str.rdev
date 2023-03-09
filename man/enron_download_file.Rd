@@ -19,5 +19,5 @@ enron_download_file(
 xls saved in /data-raw
 }
 \description{
-Import enron dataset from github and saves it in /data-raw
+Downloads enron dataset from a from github (username/repo/file.xls) and saves it in /data-raw
 }
