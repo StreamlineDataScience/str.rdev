@@ -1,1 +1,13 @@
-utils::globalVariables(c(".data", "location", "type", "group", "..remove_cols", "variable"))
+utils::globalVariables(
+  c(
+    ".data",
+    "enron",
+    "value",
+    "location",
+    "type",
+    "group",
+    "..remove_cols",
+    "variable",
+    "..remove_two_cols"
+  )
+)

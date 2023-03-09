@@ -4,20 +4,15 @@
 \alias{enron_download_file}
 \title{Download Enron dataset}
 \usage{
-enron_download_file(
-  github_link =
-    "StreamlineDataScience/enron-example/blob/main/andrea_ring_000_1_1.pst.0.xls",
-  filename = "enron"
-)
+enron_download_file(filename = "enron")
 }
 \arguments{
-\item{github_link}{link to github .xls file, username/repo/file}
-
 \item{filename}{filename that is saved}
 }
 \value{
 xls saved in /data-raw
 }
 \description{
-Downloads enron dataset from a from github (username/repo/file.xls) and saves it in /data-raw
+Downloads enron dataset from the Streamline github repo and saves it locally
+in /data-raw
 }

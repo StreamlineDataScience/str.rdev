@@ -1,57 +1,12 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-
-library(shiny)
+enron = read.csv(here::here("data", "enron.csv"))
 library(data.table)
 library(plotly)
+setDT(enron)
 
 green = "#4DB848"
-  red = "#D50032"
-
-# Define UI for application that draws a histogram
-ui <- fluidPage(
-
-  titlePanel("Enron: Trend in Spending"),
-
-  sidebarLayout(
-    sidebarPanel(
-      shinyWidgets::pickerInput(
-        "location",
-        "Location",
-        choices = sort(unique(enron$location)),
-        selected = "ACADIAN",
-        multiple = FALSE,
-        options = shinyWidgets::pickerOptions(
-          actionsBox = TRUE,
-          noneSelectedText = "Location",
-          size = 12,
-          showContent = FALSE
-        )),
-    ),
-
-    mainPanel(
-      plotlyOutput("daily_trend_linechart")
-    )
-  )
-)
-
-server <- function(input, output) {
-
-  # enron = read.csv(here::here("data", "enron.csv"))
-  setDT(enron)
-
-  enron_input = reactive({enron[location == input$location]})
-
-  output$daily_trend_linechart <- renderPlotly({
-
-    df = enron_input()
-    loc = df[1, location]
+red = "#D50032"
+df = enron[location == "TRUNKLINE"]
+loc = df[1, location]
     plotly::plot_ly(
       data = df,
       x = ~ date
@@ -100,7 +55,3 @@ server <- function(input, output) {
           showline = F,
           showgrid = F
         ))
-  })
-}
-
-shinyApp(ui = ui, server = server)

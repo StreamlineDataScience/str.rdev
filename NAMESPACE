@@ -3,4 +3,5 @@
 export(enron_download_file)
 export(enron_process_data)
 import(data.table)
-importFrom(utils,download.file)
+importFrom("utils","download.file")
+importFrom("utils","write.csv")

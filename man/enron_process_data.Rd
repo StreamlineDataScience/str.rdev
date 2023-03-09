@@ -2,16 +2,17 @@
 % Please edit documentation in R/enron_process_data.R
 \name{enron_process_data}
 \alias{enron_process_data}
-\title{Clean delivery/receipt exon dataset}
+\title{Clean exon dataset}
 \usage{
-enron_process_data(file = "exon")
+enron_process_data(file = "enron")
 }
 \arguments{
-\item{file}{name of raw .xls file to clean, is in /data-raw}
+\item{file}{name of raw .xls file to clean, is located in /data-raw}
 }
 \value{
 clean long df with
 }
 \description{
-ccc
+Puts data in long df with four cols. Saves cleaned data as a CSV in /data-raw
+and as an RDA for package data
 }

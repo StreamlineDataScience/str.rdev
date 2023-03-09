@@ -1,14 +1,14 @@
-#' Clean delivery/receipt exon dataset
+#' Clean exon dataset
 #'
-#' ccc
+#' Puts data in long df with four cols. Saves cleaned data as a CSV in /data-raw
+#' and as an RDA for package data
 #' @import data.table
-#' @param file name of raw .xls file to clean, is in /data-raw
+#' @importFrom "utils" "write.csv"
+#' @param file name of raw .xls file to clean, is located in /data-raw
 #' @return clean long df with
 #'
 #' @export
 enron_process_data = function(file = "enron") {
-    date_origin = as.Date("1899-12-30") # Date Excel starts to count days, could store in helper_functions.R
-
     openfile = here::here("data-raw", paste0(file, ".xls"))
     df = readxl::read_xls(
       # paste0("data-raw/", file, ".xls"),
@@ -37,11 +37,15 @@ enron_process_data = function(file = "enron") {
     df_wide = df_wide[, !..remove_cols]
 
     # Find Receipts/Deliveries col and fill it
-    df_wide = tidyr::fill(df_wide, which(grepl("Receipts", df_wide)))
+    receipts_col = which(grepl("Receipts", df_wide))
+    df_wide = tidyr::fill(df_wide, receipts_col)
 
     # Remove first row and 2 cols
-    df_wide = df_wide[2:nrow(df_wide), ]
-    df_wide = df_wide[, !c(1, 4)]
+    df_wide = df_wide[receipts_col:nrow(df_wide), ]
+    remove_two_cols = which(grepl("Change|Henry", df_wide))
+    df_wide = df_wide[, !..remove_two_cols]
+
+    # TODO Assumes these will be NA
     df_wide[1, 1:2] = data.frame("type", "location")
 
     # First row to colnames
@@ -52,7 +56,8 @@ enron_process_data = function(file = "enron") {
     df_long = melt(df_wide,
                    id.vars = c("type", "location"),
                    variable.factor = FALSE)
-    df_long[, variable := as.integer(variable) + date_origin]
+    # df_long[, variable := as.integer(variable) + date_origin]
+    df_long[, `:=` (variable = as.integer(variable) + date_origin, value = as.integer(value))]
     #
     # # Separate by type and merge the two together, we know deliveries is X and receipts is Y
     df_long_clean = merge(df_long[location != "Total" &
@@ -62,5 +67,6 @@ enron_process_data = function(file = "enron") {
     #
     names(df_long_clean) = c("location", "date", "deliveries", "receipts")
 
-    return(df_long_clean)
+    usethis::use_data(enron, overwrite = TRUE)
+    write.csv(df_long_clean, here::here("data-clean", paste0(file, ".csv")), row.names = FALSE)
 }

@@ -5,3 +5,5 @@
 ^README\.Rmd$
 .pdf
 dev
+data-raw
+data-clean
