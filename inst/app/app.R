@@ -42,6 +42,7 @@ server <- function(input, output) {
       df_react() %>%
         ggplot(aes(x = date, y = receipts, col = location)) +
         geom_line() +
+        theme_light() +
         labs(title = "Receipts Over Time", x = NULL, y = NULL) +
         scale_y_continuous(labels = scales::dollar_format())
     )
