@@ -10,7 +10,6 @@
 enron_process_data = function(file = "enron") {
     openfile = here::here("data-raw", paste0(file, ".xls"))
     df = readxl::read_xls(
-      # paste0("data-raw/", file, ".xls"),
       openfile,
       col_names = FALSE,
       col_types = "text"
