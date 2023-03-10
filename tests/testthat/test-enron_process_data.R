@@ -5,6 +5,7 @@ test_that("enron cleaned dataset", {
   # setDT(enron)
   enron_dt = data.table(enron)
 
+  expect_identical(paste(names(enron), collapse = ''), "locationdatedeliveriesreceipts") # col names
   expect_equal(dim(enron), c(2054, 4))
   expect_identical(length(enron[is.na(enron)]) , 0L) # No NA at all
   expect_identical(max(enron$date) , "2002-02-05") # Dates are within range

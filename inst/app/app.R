@@ -92,13 +92,13 @@ server <- function(input, output) {
           tick0 = 0,
           ticks = "inside",
           tickcolor = "rgb(245,245,245)",
-          dtick = 60 # every 60 days
+          dtick = 30 # every 60 days
         ),
         yaxis = list(
-          title = "",
-          zeroline = F,
-          showline = F,
-          showgrid = F
+          title = ""
+          # zeroline = F,
+          # showline = F,
+          # showgrid = F
         ))
   })
 }

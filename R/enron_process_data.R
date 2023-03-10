@@ -1,7 +1,6 @@
 #' Clean exon dataset
 #'
-#' Puts data in long df with four cols. Saves cleaned data as a CSV in /data-raw
-#' and as an RDA for package data
+#' Puts data in long df with four cols. Saves cleaned as an RDA for package data
 #' @import data.table
 #' @importFrom "utils" "write.csv"
 #' @param file name of raw .xls file to clean, is located in /data-raw
@@ -45,7 +44,7 @@ enron_process_data = function(file = "enron") {
     remove_two_cols = which(grepl("Change|Henry", df_wide))
     df_wide = df_wide[, !..remove_two_cols]
 
-    # TODO Assumes these will be NA
+    # TODO Assumes these will be NA and are in the right col
     df_wide[1, 1:2] = data.frame("type", "location")
 
     # First row to colnames
@@ -68,5 +67,5 @@ enron_process_data = function(file = "enron") {
     names(df_long_clean) = c("location", "date", "deliveries", "receipts")
 
     usethis::use_data(enron, overwrite = TRUE)
-    write.csv(df_long_clean, here::here("data-clean", paste0(file, ".csv")), row.names = FALSE)
+    # write.csv(df_long_clean, here::here("data-clean", paste0(file, ".csv")), row.names = FALSE)
 }

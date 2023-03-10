@@ -13,6 +13,5 @@ enron_process_data(file = "enron")
 clean long df with
 }
 \description{
-Puts data in long df with four cols. Saves cleaned data as a CSV in /data-raw
-and as an RDA for package data
+Puts data in long df with four cols. Saves cleaned as an RDA for package data
 }
