@@ -1,9 +1,28 @@
 Package: str.rdev
-Title: What the Package Does (One Line, Title Case)
+Title: Download and process the Enron data set
 Version: 0.0.0.9000
-Authors@R: NULL
-Description: What the package does (one paragraph).
+Authors@R: 
+    person("Monica", , "Gerber", "mwgerber@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-9878-9166"))
+Description: The Enron email dataset was made public following the company's 
+  collapse and contains emails from Enron employees. This package provides 
+  functions for processing and manipulating a spreadsheet that was included in 
+  the public release.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Imports: 
+    dplyr,
+    janitor,
+    magrittr,
+    purrr,
+    readxl,
+    tibble,
+    tidyr,
+    utils
+Suggests: 
+    fs,
+    readr,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
