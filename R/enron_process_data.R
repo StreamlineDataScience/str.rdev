@@ -20,9 +20,9 @@ enron_process_data <- function(file) {
                        "F137:AJ149", "F170:AI182")
   )
 
-  purrr::pmap_dfr(tables_needed, ~process_month(file, ..1, ..2, ..3)) %>%
-    dplyr::arrange(location, date)
+  df <- purrr::pmap_dfr(tables_needed, ~process_month(file, ..1, ..2, ..3))
 
+  df[order(df$location, df$date), ]
 }
 
 # Location names from top of spreadsheet
@@ -31,7 +31,7 @@ get_location_names <- function(file) {
 }
 
 # Date row for each month block
-get_date_row <- function(file, date_cells){
+get_date_row <- function(file, date_cells) {
   readxl::read_excel(file, col_names = FALSE, range = date_cells) %>%
     dplyr::mutate_all(as.character)
 }
