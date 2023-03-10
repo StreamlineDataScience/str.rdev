@@ -1,6 +1,6 @@
 Package: str.rdev
 Title: Download and process the Enron data set
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: 
     person("Monica", , "Gerber", "mwgerber@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-9878-9166"))
