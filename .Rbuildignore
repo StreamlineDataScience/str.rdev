@@ -1,5 +1,6 @@
-^str\.package\.Rproj$
+^.*\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^\.github$
 ^README\.Rmd$
+^sandpit\.R$
